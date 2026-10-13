@@ -1,0 +1,11 @@
+struct IOError {
+    usize errno;
+};
+
+trait Write {
+    Result<usize, IOError>
+};
+
+trait Read {
+    Result<usize, IOError> read
+};

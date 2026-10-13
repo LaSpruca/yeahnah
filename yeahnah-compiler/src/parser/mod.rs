@@ -1,0 +1,3 @@
+enum TokenVariant {
+    Ident(String),
+}

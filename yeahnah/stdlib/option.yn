@@ -1,0 +1,31 @@
+struct Option<T> {
+    bool present;
+
+    union {
+        T value;
+        void *absent;
+    } inner;
+}
+
+Option<T> Option.none<T>() {
+    Option<T> value = {
+        .present = false,
+        .inner = {
+            .absent = NULL
+        }
+    };
+
+    return value;
+}
+
+Option<T> Option.some<T>(T inner) {
+    Option<T> value = {
+        .present = true,
+        .inner = {
+            .value = inner
+        }
+    };
+
+    return value;
+}
+

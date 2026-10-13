@@ -1,0 +1,5 @@
+struct Vector<T: Sized> {
+    T* ptr;
+    int cap;
+    int len;
+}

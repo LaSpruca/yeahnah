@@ -1,0 +1,8 @@
+struct Result<Ok, Err> {
+    bool ok;
+
+    union {
+        Ok ok;
+        Err err;
+    } inner;
+}
