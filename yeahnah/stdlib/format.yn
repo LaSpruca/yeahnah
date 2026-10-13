@@ -1,0 +1,5 @@
+#include <unistd.h>
+
+void printf(String str) {
+    write(STDOUT_FILENO, args.ptr, args.len);
+}

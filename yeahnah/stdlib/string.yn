@@ -1,0 +1,4 @@
+struct String {
+    const u8    *ptr;
+    usize        len; 
+}
