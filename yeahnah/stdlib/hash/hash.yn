@@ -1,0 +1,15 @@
+trait Hasher {
+    void hash_bytes(for Self *mut self, u8[] bytes);
+}
+
+trait Hash {
+    void update(T *mut hasher) <T: Hasher>;
+}
+
+struct SpeedyHasher {
+
+}
+
+impl Hasher for SipHash {
+    fn hash_bytes(for Self *mut self, u8[] bytes) {}
+}

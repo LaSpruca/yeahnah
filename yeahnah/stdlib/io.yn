@@ -3,9 +3,9 @@ struct IOError {
 };
 
 trait Write {
-    Result<usize, IOError>
+    Result<usize, IOError> write(for Self self, u8[] bytes);
 };
 
 trait Read {
-    Result<usize, IOError> read
+    Result<usize, IOError> read(for Self self, u8[] bytes);
 };

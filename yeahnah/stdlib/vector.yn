@@ -3,3 +3,66 @@ struct Vector<T: Sized> {
     int cap;
     int len;
 }
+
+impl Index for Vector<T> {
+    typedef T Output;
+
+    Output *mut index_mut(for Self *mut self, usize index) {
+        if (index >= self.len) {
+            panic("{} is out of bounds", index);
+        }
+
+        return &self.ptr[index];
+    }
+
+    Output *index_at(for Self *self, usize index) {
+        if (index >= self.len) {
+            panic("{} is out of bounds", index);
+        }
+
+        return &self.ptr[index];
+    }
+}
+
+void expand_to_fit(for Vector<T> *mut self, usize items) <T: Sized> {
+    var usize remaining = usize.MAX - self.cap;
+    if (items > remaining) {
+        panic("Cannot expand by {} items", items);
+    }
+
+    if (self.cap == 0) {
+        self.cap = 4;
+        self.ptr = context.alloc.alloc<T>(self.cap);
+
+        if (self.ptr == NULL) {
+            panic("Could not alloc");
+        }
+    }
+
+    var usize target_size = self.len + items;
+    if (target_size > self.cap) {
+        self.cap = min(self.cap * 2, target_size);
+        self.ptr = context.alloc.realloc<T>(self.ptr, self.cap);
+    }
+
+    if (self.ptr == NULL) {
+        panic("Could not alloc");
+    }
+}
+
+void push(for Vector<T> *mut self, T item) <T: Sized> {
+    self.expand_to_fit(1);
+    self.items[self.len] = item;
+}
+
+void pop(for Vector<T> *mut self) <T: Sized> {
+    var T item = self.ptr[self.len - 1];
+    self.len--;
+
+    return item;
+}
+
+void append(for Vector<T> *mut self, Vector<T> other) <T: Sized> {
+    self.expand_to_fit(other.len);
+    memcpy<T>(self.ptr[len], other.ptr, other.len);
+}

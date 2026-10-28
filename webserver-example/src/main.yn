@@ -1,0 +1,61 @@
+// POST /auth/signup             { username: String, password: String } -> { token: String }
+// POST /auth/login              { username: String, password: String } -> { token: String }
+// POST /auth/logout             -                                      -> -
+// GET  /auth/me                 -                                      -> { username: String }
+// GET  /posts?page=u32&size=u32 -                                      -> { posts: Post[] }
+// GET  /posts/mine              -                                      -> { posts: Post[] }
+// POST /posts                   { content: String }                    -> { post: Post }
+import "uuid";
+
+struct DbUser {
+    Uuid   id;
+    String username;
+    String password_hash;
+}
+
+struct DbPost {
+    String username;
+}
+
+trait Database {
+
+}
+
+[serialize]
+struct Post {
+    String username;
+    String content;
+    u32 likes;
+
+    Vector<struct {
+        String author;
+        String content;
+        u32 likes;
+    }> comments;
+}
+
+[serialize]
+struct LoginRequest {
+    String username;
+    String password;
+}
+
+[serialize]
+struct SignupRequest {
+    String username;
+    String password;
+}
+
+[serialize]
+struct LoginResponse {
+    String token;
+}
+
+[serialize]
+struct Profile {
+    String username;
+}
+
+Task<void> method_login([body] LoginRequest request, [inject] Database *db) {
+
+}

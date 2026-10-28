@@ -1,0 +1,1 @@
+struct HashMap<Key, Value, Hasher = SpeedyHasher>

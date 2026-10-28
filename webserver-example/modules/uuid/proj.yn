@@ -1,0 +1,4 @@
+#at /src
+
+// This version should corespond to a git tag that can be pulled - Used when importing modules to make sure the git submodule works correctly
+#version 0.0.1

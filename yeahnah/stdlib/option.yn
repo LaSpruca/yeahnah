@@ -7,8 +7,8 @@ struct Option<T> {
     } inner;
 }
 
-Option<T> Option.none<T>() {
-    Option<T> value = {
+Option<T> Option<T>.none() <T> {
+    var Option<T> value = {
         .present = false,
         .inner = {
             .absent = NULL
@@ -18,8 +18,8 @@ Option<T> Option.none<T>() {
     return value;
 }
 
-Option<T> Option.some<T>(T inner) {
-    Option<T> value = {
+Option<T> Option<T>.some(T inner) <T> {
+    var Option<T> value = {
         .present = true,
         .inner = {
             .value = inner
@@ -29,3 +29,10 @@ Option<T> Option.some<T>(T inner) {
     return value;
 }
 
+T  value(for Option<T> self) <T> {
+    return self.inner.value;
+}
+
+Option<U> map(for Option<T> self, Function<(T), U> *map) <T, U> {
+    return self.present ? map(self.inner.value) : Option<U>.none();
+}
